@@ -21,6 +21,8 @@ Template :
 ```
 ID
 Nation ID
+Name
+ACE
 Type
     command
     infantry
@@ -44,6 +46,7 @@ Morale
     reluctant
     miserable
 Equipment
+    superb
     excellent
     good
     adequate
@@ -61,28 +64,20 @@ Supply
 ```
 Size
     min / avg / max strength
-Training
-    guard
-    elite
-    crack
-    line
-    conscript
-    militia
-    untrained
-Morale
-    fanatic
-    enthusiastic
-    stoic
-    veteran
-    regular
-    reluctant
-    miserable
 Fire Discipline
     excellent
     good
     adequate
     lacking
+Musketry Doctrine
+    refined
+    accuracy
+    volume
+    line
+    cold steel
+ACE Rating
 Drill Doctrine
+    bare basics
     basic french
     intermediate french
     advanced french
@@ -90,10 +85,13 @@ Drill Doctrine
     new prussian
     basic austrian
     advanced austrian
-    british
+    professional british
+    experienced guerilla
+    untrained mob
 Skirmish Doctrine
     schutzen
     flank companies
+    legere
     3rd rank
     jager
     en debande
@@ -118,6 +116,16 @@ ID
 Unit Template ID
 Name
 Parent Unit ID
+Size
+Hits
+Bases
+Disorders - grey / blue
+Smoke
+Fatigue
+Formation
+Moving
+ACE
+Broken
 ```
 
 .command
@@ -138,14 +146,17 @@ Level
 
 .infantry
 ```
-Size
-Hits
-Disorders - grey / blue
-Smoke
-Fatigue
+Prepared
+Marching
+Firefight
+Melee
+Ammo
 ```
 
 .cavalry
+```
+
+```
 
 .artillery
 
