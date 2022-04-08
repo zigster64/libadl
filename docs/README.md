@@ -23,6 +23,9 @@ ID
 Nation ID
 Name
 ACE
+Shock Troops
+Size
+    min / avg / max strength
 Type
     command
     infantry
@@ -62,8 +65,6 @@ Supply
 
 .infantry
 ```
-Size
-    min / avg / max strength
 Fire Discipline
     excellent
     good
@@ -82,12 +83,12 @@ Drill Doctrine
     intermediate french
     advanced french
     old prussian
-    new prussian
+    reformed prussian
     basic austrian
     advanced austrian
     professional british
-    experienced guerilla
-    untrained mob
+    guerilla
+    mob
 Skirmish Doctrine
     schutzen
     flank companies
@@ -103,6 +104,17 @@ Skirmish Rating
 ```
 
 .cavalry
+```
+Battle Cavalry
+Type
+    armoured
+    heavy
+    dragoon
+    lancer
+    light
+    hussar
+    cossack
+```
 
 .artillery
 
@@ -111,6 +123,7 @@ Skirmish Rating
 ----------------------------------------
 Instance :
 
+Unit
 ```
 ID
 Unit Template ID
@@ -130,18 +143,20 @@ Broken
 
 .command
 ```
+Inspiration Bonus
+Command Bonus
+Orders Cycle
+Range
 Type
-    enum:
-        general
-        cavalry
-        artillery
-        admin
+    general
+    cavalry
+    artillery
+    admin
 Level
-    enum:
-        army
-        corps
-        division
-        brigade
+    army
+    corps
+    division
+    brigade
 ```
 
 .infantry
@@ -151,11 +166,17 @@ Marching
 Firefight
 Melee
 Ammo
+Ranks
+SK Deployment
 ```
 
 .cavalry
 ```
-
+Blown
+Charging
+Battle Mad
+Waves
+SK Deployment
 ```
 
 .artillery
