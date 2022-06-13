@@ -4,26 +4,25 @@
 -- name
 -- description
 -- code modules used in this phase
-local phase_data = {
-	1: {
-		name = 'Corps Orders',
-		description = 'Issue and activate Corps Orders',
-		code = require('corps-orders')
-	}, {
-		name = '',
-		description = '',
-		code = require() 
+phases = {
+	{
+		name = "Corps Orders",
+		description = "Issue Corps Orders from Army Commander"
+	},
+	{
+		name = "ME Orders",
+		description = "Issue ME Orders from Corps Commanders"
 	}
 }
 
-phases = {}
-
-function phases.get(order)
-	return orders[order]
-end
-
-function phases.next(current)
-	return {}
+function phases:help()
+	print('List of phases in order')
+	local u = require('util')
+	for index, value in ipairs(self) do
+		print(index, value.name)
+		print(value.description)
+		print(u.line)
+	end
 end
 
 return phases
