@@ -9,6 +9,11 @@ ultimate evolution of the Empire series of rules.
 
 A massively complex set of rules that are tough to play, but highly realistic.
 
+They cover mulit-corps battles with Division sized units as command Maneuver Elements,
+but with Battalions and detached companies at the tactical end. (Same scale as Empire basically)
+
+Best played as an all-weekend battle on a huge table with lots of figures and a handful of players.
+
 Featuring :
 - detailed skirmish combat
 - highly modified artillery rules
@@ -16,6 +21,7 @@ Featuring :
 - detailed rules on deployments
 - commander actions
 - highly detailed rules on leader injuries !
+- a few Chef de Bataillon level tweaks thrown in for Battalion formations and evolutions. 
 
 Probably a bit more complicated than straight Empire, these rules have a huge number 
 of extra tables to consult, so they are a great candidate for automation.
