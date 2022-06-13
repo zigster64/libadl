@@ -55,18 +55,36 @@ end
 		return true
 	end,
 
-	-- get an order
-	get = function(self, order)
-		return self[order]
-	end,
-
-	-- set a new order
-	set = function(self, order)
-		return order
+	-- delay for a new order reaching target
+	delay = function(distance, weather, roll)
+		if roll == 0 then
+			roll = require('dice').roll()
+		end
+		roll = roll - weather
+		if roll < 6 then
+			distance = distance * 2
+		elseif roll < 9 then
+			distance = distance * 1.2
+		elseif roll > 15 then
+			distance = distance * 0.9
+		end
+		print('Effective distance', distance)
+		d = 0
+		if distance <= 4 then
+			d = 0
+		elseif distance <= 10 then
+			d = 1
+		elseif distance <= 20 then
+			d = 2
+		else
+			d = 3 + (distance - 20)/15
+		end
+		print(d,'turns delay')
+		return d
 	end,
 
 	-- attempt to do independent action
-	independent_action = function(self, new_order, rating, army_commander_near, roll)
+	independent_action = function(new_order, rating, army_commander_near, roll)
 		if roll == 0 then
 			roll = require('dice').roll()
 		end
