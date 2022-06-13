@@ -11,8 +11,26 @@ function util.GetArgs(func)
     return args;
 end
 
-function util.DescribeFunc(name, fn)
-	return string.format('%s(%s)', name, table.concat(util.GetArgs(fn), ', '))
+function util.DescribeFunc(module, name, fn)
+	local args = util.GetArgs(fn)
+	if args[1] == 'self' then
+		return string.format('%s:%s(%s)', module, name, table.concat(args, ', ', 2))
+	end
+	return string.format('%s.%s(%s)', module, name, table.concat(args, ', '))
+end
+
+function util.PrintFunctions(module, thing)
+	-- print methods
+	local has_any = false
+	for key, value in pairs(thing) do
+		if type(value) == 'function' then
+			if has_any == false then
+				print("Functions:")
+				has_any = true
+			end
+			print('  ', util.DescribeFunc(module, key, value))
+		end
+	end
 end
 
 return util

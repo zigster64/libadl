@@ -10,15 +10,17 @@ require "me_orders"
 -- iterate over loaded modules and print :help for each one
 rules = {}
 
-function rules:help()
+function rules:help(topic)
+	if topic ~= nil then
+		topic:help()
+		return
+	end
+	print("Topics:")
 	for key, value in pairs(package.loaded) do
 		if key ~= 'rules' and type(value) == 'table' then
 			h = value['help']
 			if type(h) == 'function' then
-				print(key)
-				h(value)
-				print()
-				print(util.dline)
+				print(' ', key)
 			end
 		end
 	end

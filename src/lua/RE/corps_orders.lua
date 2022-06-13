@@ -41,9 +41,8 @@ The Corps is to withdraw from eneny forces
 
 -- module help
 function corps_orders:help() 
-	local u = require('util')
 	print('Corps Level Orders')
-	print(u.line)
+	print(util.line)
 	-- print attribs
 	for key, value in pairs(self) do
 		if type(value) == 'table' then
@@ -57,17 +56,11 @@ function corps_orders:help()
 				io.write(me_value)
 			end
 			io.write("\n")
-			print(u.line)
+			print(util.line)
 		end
 	end
-	-- print methods
-	print('Functions:')
-	for key, value in pairs(self) do
-		if type(value) == 'function' then
-			print('  ', util.DescribeFunc(key, value))
-		end
-	end
-	print(u.dline)
+	util.PrintFunctions('corps_orders', self)
+	print(util.dline)
 end
 
 -- print the contents of an order
