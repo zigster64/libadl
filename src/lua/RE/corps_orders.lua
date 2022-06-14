@@ -1,19 +1,19 @@
 -- Corps Orders Data and Functions
 
 corps_orders = {
-	['Attack'] = {
+	{
 		name = 'Attack',
 		stipulations = [[ 
 Until Engaged, every ME must have
 Attack
-Maneuver
+Maneuver towards Enemy
 Prepare
 
 One ME must be engaged at all times
 		]],
 		me = {'Attack', 'Prepare', 'Defend', 'Support', 'Maneuver', 'BreakOff', 'ReDeploy', 'Rest'},
 	},
-	['Defend'] = {
+	{
 		name = 'Defend',
 		stipulations = [[ 
 At least 1 ME must have a Defend order
@@ -21,16 +21,16 @@ within the specified defensive position
 		]],
 		me = {'Attack', 'Defend', 'Support', 'Maneuver', 'BreakOff', 'Screen', 'ReDeploy', 'Rest'},
 	},
-	['Maneuver'] = {
+	{
 		name = 'Maneuver',
 		stipulations = [[ 
 MEs may not voluntarily engage. 
-Deviations up to 3x Engagement Range
+Deviations up to 4D Range
 to avoid enemy held structures
 		]],
 		me = {'Support', 'Maneuver'},
 	},
-	['Withdraw'] = {
+	{
 		name = 'Withdraw',
 		stipulations = [[ 
 The Corps is to withdraw from eneny forces
@@ -39,23 +39,24 @@ The Corps is to withdraw from eneny forces
 	}
 }
 
+-- get by name
+function corps_orders:get(name)
+	for _, value in ipairs(self) do
+		if name == value.name then
+			return value
+		end
+	end
+	return nil
+end
+
 -- module help
-function corps_orders:help() 
+function corps_orders:help()
 	print('Corps Level Orders')
 	print(util.line)
 	-- print attribs
-	for key, value in pairs(self) do
+	for _, value in ipairs(self) do
 		if type(value) == 'table' then
-			print(key)
-			print(value.stipulations)
-			io.write('ME Orders: ')
-			for me_index, me_value in ipairs(value.me) do
-				if me_index > 1 then
-					io.write(', ')
-				end
-				io.write(me_value)
-			end
-			io.write("\n")
+			corps_orders.print(value)
 			print(util.line)
 		end
 	end
@@ -66,9 +67,10 @@ end
 -- print the contents of an order
 function corps_orders.print(order)
 	print('Order:', order.name)
-	print('Stipulations:')
+	print('  Stipulations:')
 	print(order.stipulations)
-	print('ME Orders:')
+	print('  ME Orders:')
+	io.write('    ')
 	for index, value in ipairs(order.me) do
 		if index > 1 then
 			io.write(', ')
@@ -97,7 +99,7 @@ function corps_orders.delay(distance, weather, roll)
 		distance = distance * 0.9
 	end
 	print('Effective distance', distance)
-	d = 0
+	local d = 0
 	if distance <= 4 then
 		d = 0
 	elseif distance <= 10 then
@@ -117,7 +119,7 @@ function corps_orders.independent_action(new_order, rating, army_commander_near,
 	if roll == 0 then
 		roll = require('dice').roll()
 	end
-	mods = rating
+	local mods = rating
 	if army_commander_near then
 		mods = mods -3
 	end
@@ -127,13 +129,13 @@ function corps_orders.independent_action(new_order, rating, army_commander_near,
 	print('Dice Total', roll)
 	if roll >= 15 then
 		return true
-	elseif roll >= 13 then	
-		if new_order == 'A' then
+	elseif roll >= 13 then
+		if new_order == 'Attack' then
 			print('Would be enough, but not for Attack orders')
 			return false
 		end
 		return true
-	else 
+	else
 		return false
 	end
 end

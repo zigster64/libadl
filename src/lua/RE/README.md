@@ -14,6 +14,8 @@ but with Battalions and detached companies at the tactical end. (Same scale as E
 
 Best played as an all-weekend battle on a huge table with lots of figures and a handful of players.
 
+Real Napoleonic Wargaming for die hard fans.
+
 Featuring :
 - detailed skirmish combat
 - highly modified artillery rules

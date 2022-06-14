@@ -33,6 +33,12 @@ function util.PrintFunctions(module, thing)
 	end
 end
 
+function util.Print(t)
+	for key, value in pairs(t) do
+		print(key,':', value)
+	end
+end
+
 return util
 
 

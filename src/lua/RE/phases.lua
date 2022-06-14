@@ -1,18 +1,18 @@
 -- Phases - for order of play
 
--- Each phase has 
+-- Each phase has:
 -- name
 -- description
 -- code modules used in this phase
 phases = {
 	{
-		name = "Corps Orders",
-		description = "Issue Corps Orders from Army Commander",
+		name = 'Corps Orders',
+		description = 'Issue Corps Orders from Army Commander',
 		module = 'corps_orders'
 	},
 	{
-		name = "ME Orders",
-		description = "Issue ME Orders from Corps Commanders",
+		name = 'ME Orders',
+		description = 'Issue ME Orders from Corps Commanders',
 		module = 'me_orders'
 	}
 }

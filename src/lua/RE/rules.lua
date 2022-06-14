@@ -18,7 +18,7 @@ function rules:help(topic)
 	print("Topics:")
 	for key, value in pairs(package.loaded) do
 		if key ~= 'rules' and type(value) == 'table' then
-			h = value['help']
+			local h = value['help']
 			if type(h) == 'function' then
 				print(' ', key)
 			end
