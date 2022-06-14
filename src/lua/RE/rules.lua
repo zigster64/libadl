@@ -6,6 +6,7 @@ require 'dice'
 require "phases"
 require "corps_orders"
 require "me_orders"
+require "me_morale"
 
 -- iterate over loaded modules and print :help for each one
 rules = {}

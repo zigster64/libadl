@@ -14,6 +14,11 @@ phases = {
 		name = 'ME Orders',
 		description = 'Issue ME Orders from Corps Commanders',
 		module = 'me_orders'
+	},
+	{
+		name = 'ME Morale',
+		description = 'Test ME Morale Levels',
+		module = 'me_morale'
 	}
 }
 

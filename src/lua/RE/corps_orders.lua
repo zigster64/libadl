@@ -25,7 +25,7 @@ within the specified defensive position
 		name = 'Maneuver',
 		stipulations = [[ 
 MEs may not voluntarily engage. 
-Deviations up to 4D Range
+Deviations up to 16" are permissible
 to avoid enemy held structures
 		]],
 		me = {'Support', 'Maneuver'},
@@ -42,7 +42,7 @@ The Corps is to withdraw from eneny forces
 -- get by name
 function corps_orders:get(name)
 	for _, value in ipairs(self) do
-		if name == value.name then
+		if string.upper(name) == string.upper(value.name) then
 			return value
 		end
 	end
@@ -66,7 +66,7 @@ end
 
 -- print the contents of an order
 function corps_orders.print(order)
-	print('Order:', order.name)
+	print('Corps Order ', ':', order.name)
 	print('  Stipulations:')
 	print(order.stipulations)
 	print('  ME Orders:')
@@ -92,22 +92,22 @@ function corps_orders.delay(distance, weather, roll)
 	end
 	roll = roll - weather
 	if roll < 6 then
-		distance = distance * 2
+		distance = distance * 3
 	elseif roll < 9 then
-		distance = distance * 1.2
+		distance = distance * 2
 	elseif roll > 15 then
 		distance = distance * 0.9
 	end
 	print('Effective distance', distance)
 	local d = 0
-	if distance <= 4 then
+	if distance <= 24 then
 		d = 0
-	elseif distance <= 10 then
+	elseif distance <= 60 then
 		d = 1
-	elseif distance <= 20 then
+	elseif distance <= 120 then
 		d = 2
 	else
-		d = 3 + (distance - 20)/15
+		d = 3 + (distance - 120)/90
 	end
 	d = math.floor(d)
 	print(d,'turns delay')
