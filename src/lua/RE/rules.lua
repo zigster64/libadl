@@ -9,16 +9,16 @@ require "me_orders"
 require "me_morale"
 
 -- iterate over loaded modules and print :help for each one
-rules = {}
+local rules = {}
 
-function rules:help(topic)
+function help(topic)
 	if topic ~= nil then
 		topic:help()
 		return
 	end
 	print("Topics:")
 	for key, value in pairs(package.loaded) do
-		if key ~= 'rules' and type(value) == 'table' then
+		if key ~= 'rules' and key ~= '_G' and type(value) == 'table' then
 			local h = value['help']
 			if type(h) == 'function' then
 				print(' ', key)

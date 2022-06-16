@@ -29,9 +29,12 @@ function phases:help(module)
 	end
 	print('List of phases in order')
 	for index, value in ipairs(self) do
-		print(string.format('%d: %s', index, value.module))
-		print('  ', value.name)
-		print('  ', value.description)
+		print(string.format('%d: %s\n  %s\n  (%s)',
+			index,
+			value.name,
+			value.description,
+			value.module
+		))
 		print(util.line)
 	end
 	util.PrintFunctions('phases', self)
