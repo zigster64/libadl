@@ -1,4 +1,5 @@
 util = {
+	indent = '    ',
 	line = '----------------------------------',
 	dline = '=================================='
 }
@@ -33,9 +34,13 @@ function util.PrintFunctions(module, thing)
 	end
 end
 
-function util.Print(t)
+function util.Print(t, pad)
+	pad = pad or ''
 	for key, value in pairs(t) do
-		print(key,':', value)
+		print(pad .. key,':', value)
+		if type(value) == "table" then
+			util.Print(value, pad .. util.indent)
+		end
 	end
 end
 
