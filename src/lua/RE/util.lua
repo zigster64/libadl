@@ -44,6 +44,17 @@ function util.Print(t, pad)
 	end
 end
 
+function util.Merge(a,b)
+	for k,v in pairs(b) do
+		if type(v) == "table" then
+			util.Merge(a[k], v)
+		else
+			a[k] = v
+		end
+	end
+	return a
+end
+
 return util
 
 
