@@ -27,12 +27,68 @@ function me_morale:help()
 			print(util.line)
 		end
 	end
-	util.PrintFunctions('me_orders', self)
+	util.PrintFunctions('me_morale', self)
+
+	print('Test Params:')
+	print('  rating     ','ME rating from 10 (OldGuard) through to 0 (Rabble)')
+	print('  good       ','Number of Bns / Btys / Cav Grps in good morale with no ammo depletion')
+	print('  bad')
+	print('    infantry ','Number of Infantry Bns lost / bad morale')
+	print('    artillery','Number of Artillery Btys lost / bad morale')
+	print('    cavalry  ','Number of Cavalry Grps lost / bad morale ')
+	print('  structures')
+	print('    held     ','Number of structures held')
+	print('    lost     ','Number of structures lost')
+	print('  defeat     ','Number of CloseAction defeats this turn')
+	print('  victory    ','Number of CloseAction victories this turn')
+	print('  fatigue    ','Number of ME Fatigue points')
+	print('  campaign_fatigue -1 Weary / -2 Haggard / -5 Spent')
+	print('  leader +1 Inspirational +3 Charismatic leader attached')
+	print('  previously_shaken','true or false, ME was previously shaken')
+	print('  interpenetrated  ','true or false, ME is interpenetrated by friendly ME')
+	print('  other','any other modifiers')
 	print(util.dline)
 end
 
+-- validate params
+function me_morale:params(p)
+	params = {
+		rating = 4,
+		other = 0,
+		good = 1,
+		bad = {infantry = 0, artillery = 0, cavalry = 0},
+		structures = {held = 0, lost = 0},
+		defeat = 0,
+		victory = 0,
+		fatigue = 0,
+		campaign_fatigue = 0,
+		leader = 0,
+		previously_shaken = false,
+		interpenetrated = false,
+	}
+	for k,v in pairs(p) do params[k] = v end
+	return params
+end
+
 -- me morale test
-function me_morale:test()
+function me_morale:test(params, roll)
+	roll = roll or dice.roll()
+	params = self:params(params)
+	local mods = params.rating + params.other + params.structures.held - params.structures.lost + 
+		(params.bad.infantry * 2)+ (params.bad.artillery * 2) + (params.bad.cavalry * 6) +
+		(params.good) + (params.defeat * 2) + (params.victory * 2) +
+		(params.fatigue) + (params.campaign_fatigue) + (params.leader)
+	if (params.previously_shaken) then
+		mods = mods - 3
+	end
+	if (params.intepenetrated) then
+		mods = mods - 2
+	end
+	print('Roll', roll, 'mods', mods, '=', roll+mods)
+	roll = roll + mods
+	if (roll <= 5) then
+		print('Broken - entire ME dissolves in bad morale')
+	end
 end
 
 return me_morale
