@@ -24,10 +24,3 @@ require "engineering"
 require "firefight"
 require ""
 print("All functions loaded")
-sequence.lua
-smallarms.lua
-street-fight.lua
-tactical-morale.lua
-tactical-move.lua
-victory-points.lua
-woods.lua

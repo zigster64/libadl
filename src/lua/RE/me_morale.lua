@@ -51,7 +51,7 @@ function me_morale:help()
 end
 
 -- validate params
-function me_morale:params(p)
+function me_morale:check(p)
 	params = {
 		rating = 4,
 		other = 0,
@@ -66,17 +66,17 @@ function me_morale:params(p)
 		previously_shaken = false,
 		interpenetrated = false,
 	}
-	for k,v in pairs(p) do params[k] = v end
-	return params
+	return util.Merge(params, p)
 end
 
 -- me morale test
 function me_morale:test(params, roll)
 	roll = roll or dice.roll()
-	params = self:params(params)
+	params = self:check(params)
+	util.Print(params)
 	local mods = params.rating + params.other + params.structures.held - params.structures.lost + 
-		(params.bad.infantry * 2)+ (params.bad.artillery * 2) + (params.bad.cavalry * 6) +
-		(params.good) + (params.defeat * 2) + (params.victory * 2) +
+		(params.bad.infantry * -2)+ (params.bad.artillery * -2) + (params.bad.cavalry * -6) +
+		(params.good) + (params.defeat * -2) + (params.victory * 2) +
 		(params.fatigue) + (params.campaign_fatigue) + (params.leader)
 	if (params.previously_shaken) then
 		mods = mods - 3
@@ -87,8 +87,29 @@ function me_morale:test(params, roll)
 	print('Roll', roll, 'mods', mods, '=', roll+mods)
 	roll = roll + mods
 	if (roll <= 5) then
-		print('Broken - entire ME dissolves in bad morale')
+		return {
+			result = 'Broken - entire ME dissolves in bad morale',
+			broken = true
+		}
+	elseif (roll <= 8) then
+		return {
+			result = 'Retreat and Shaken. ME Converts to BreakOff order and retreats 16". All units -2 morale. 1 Fatigue',
+			broken = false,
+			shaken = true,
+			fatigue = 1
+		}
+	elseif (roll <= 10) then
+		return {
+			result = 'Shaken. Attacks without impetus fall back 16" and convert to defend. Defending ME may elect to BreakOff',
+			broken = false,
+			shaken = true
+		}
 	end
+	return {
+		result = 'Steady (Remove Shaken)',
+		broken = false,
+		shaken = false
+	}
 end
 
 return me_morale
