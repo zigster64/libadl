@@ -14,7 +14,6 @@ me_morale = {
 		'Infantry or mixed ME interpenetrated by Cavalry ME',
 		'Friendly ME routs through this ME'
 	},
-	results = {}
 }
 
 -- module help
@@ -30,6 +29,10 @@ function me_morale:help()
 	end
 	util.PrintFunctions('me_orders', self)
 	print(util.dline)
+end
+
+-- me morale test
+function me_morale:test()
 end
 
 return me_morale

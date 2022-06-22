@@ -16,9 +16,7 @@ function dice.roll()
 end
 
 function dice.fire(ammo)
-	if ammo == nil then
-		ammo = 1
-	end
+	ammo = ammo or 1
 	local roll1 = math.random(10)
 	local roll2 = math.random(10)
 	local roll3 = math.random(6)
