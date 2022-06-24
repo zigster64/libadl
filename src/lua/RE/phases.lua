@@ -27,18 +27,23 @@ local phases = {
 	}
 }
 
-function phases:help(module)
+function phases:Help(module)
 	if module ~= nil then
-		module:help()
+		module:Help()
 		return
 	end
 	print('List of phases in order')
 	for index, value in ipairs(self) do
-		print(string.format('%d: %s\n  %s\n  (%s)',
+		-- print(string.format('%d: %s\n  %s\n  (%s)',
+			-- index,
+			-- value.name,
+			-- value.description,
+			-- value.module
+		-- ))
+		print(string.format('%d: %s\n\n   %s',
 			index,
 			value.name,
-			value.description,
-			value.module
+			value.description
 		))
 		print(util.line)
 	end

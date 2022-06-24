@@ -17,7 +17,7 @@ local me_morale = {
 }
 
 -- module help
-function me_morale:help()
+function me_morale:Help()
 	print('ME Morale')
 	print(Util.line)
 	-- print attribs

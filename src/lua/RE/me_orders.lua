@@ -66,7 +66,7 @@ local me_orders = {
 }
 
 -- module help
-function me_orders:help(order)
+function me_orders:Help(order)
 	print('ME Level Orders')
 	if order ~= nil then
 		me_orders.print(order)
@@ -96,7 +96,8 @@ end
 
 -- print the contents of an order
 function me_orders.print(order)
-	print('ME Order ', ':', order.name)
+	print(order.name)
+	print()
 	if order.notes ~= nil then
 		print('Notes    ', ':', order.notes)
 	end

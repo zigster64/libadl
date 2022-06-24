@@ -10,12 +10,12 @@ ME_orders = require('ME_orders')
 ME_morale = require('ME_morale')
 ME_panic = require('ME_panic')
 
--- iterate over loaded modules and print :help for each one
+-- iterate over loaded modules and print :Help for each one
 local rules = {}
 
 function Help(topic)
 	if topic ~= nil then
-		topic:help()
+		topic:Help()
 		return
 	end
 	print("Topics:")

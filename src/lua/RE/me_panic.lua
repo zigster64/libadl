@@ -9,7 +9,7 @@ local me_panic = {
 }
 
 -- module help
-function me_panic:help()
+function me_panic:Help()
 	print('ME Panic Check')
 	print(Util.line)
 	-- print attribs
