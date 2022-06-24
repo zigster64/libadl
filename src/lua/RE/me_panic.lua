@@ -80,15 +80,18 @@ function me_panic:test(params, roll)
 		mods = mods -3
 	end
 
+	local p1 = params.grade.panic[1]
+	local p2 = params.grade.panic[2]
+	print('Will break on Less than or equal to '..p2..', will Carry On on '..p1..' or more. Anything inbetween = Shaken')
 	print('Roll '..roll..' + mods '..mods..' = '..(roll+mods))
 	roll = roll + mods
-	if roll >= params.grade.panic[1] then
+	if roll >= p1 then
 		return {
 			result = 'Carry On',
 			shaken = false,
 			broken = false,
 		}
-	elseif roll <= params.grade.panic[2] then
+	elseif roll <= p2 then
 		return {
 			result = 'ME is shaken. All units -2 on morale and shock values',
 			shaken = true,
