@@ -1,6 +1,6 @@
 -- Corps Orders Data and Functions
 
-corps_orders = {
+local corps_orders = {
 	{
 		name = 'Attack',
 		stipulations = [[ 
@@ -52,16 +52,16 @@ end
 -- module help
 function corps_orders:help()
 	print('Corps Level Orders')
-	print(util.line)
+	print(Util.line)
 	-- print attribs
 	for _, value in ipairs(self) do
 		if type(value) == 'table' then
 			corps_orders.print(value)
-			print(util.line)
+			print(Util.line)
 		end
 	end
-	util.PrintFunctions('corps_orders', self)
-	print(util.dline)
+	Util.PrintFunctions('corps_orders', self)
+	print(Util.dline)
 end
 
 -- print the contents of an order
@@ -88,7 +88,7 @@ end
 -- delay for a new order reaching target
 function corps_orders.delay(distance, weather, roll)
 	if roll == 0 then
-		roll = require('dice').roll()
+		roll = Dice.roll()
 	end
 	roll = roll - weather
 	if roll < 6 then
@@ -117,7 +117,7 @@ end
 -- attempt to do independent action
 function corps_orders.independent_action(new_order, rating, army_commander_near, roll)
 	if roll == 0 then
-		roll = require('dice').roll()
+		roll = Dice.roll()
 	end
 	local mods = rating
 	if army_commander_near then

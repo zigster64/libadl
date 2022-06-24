@@ -1,21 +1,21 @@
 -- Dice rolling functions
 math.randomseed(os.time())
 
-dice = {}
+local Dice = {}
 
-function dice:help()
+function Dice:Help()
 	print('Die Rolling')
-	util.PrintFunctions('dice', self)
+	Util.PrintFunctions('Dice', self)
 end
 
-function dice.roll()
+function Dice.roll()
 	local roll1 = math.random(10)
 	local roll2 = math.random(10)
 	print(' ... Rolling', roll1, roll2)
 	return roll1+roll2
 end
 
-function dice.fire(ammo)
+function Dice.fire(ammo)
 	ammo = ammo or 1
 	local roll1 = math.random(10)
 	local roll2 = math.random(10)
@@ -31,4 +31,4 @@ function dice.fire(ammo)
 	}
 end
 
-return dice
+return Dice

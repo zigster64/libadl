@@ -1,17 +1,19 @@
 -- util functions and data
-require 'util'
-require 'dice'
+Util = require('Util')
+Dice = require('Dice')
+Grades = require('Grades')
 
 -- RE specific logic
-require "phases"
-require "corps_orders"
-require "me_orders"
-require "me_morale"
+Phases = require('Phases')
+Corps_orders = require('Corps_orders')
+ME_orders = require('ME_orders')
+ME_morale = require('ME_morale')
+ME_panic = require('ME_panic')
 
 -- iterate over loaded modules and print :help for each one
 local rules = {}
 
-function help(topic)
+function Help(topic)
 	if topic ~= nil then
 		topic:help()
 		return
@@ -19,7 +21,7 @@ function help(topic)
 	print("Topics:")
 	for key, value in pairs(package.loaded) do
 		if key ~= 'rules' and key ~= '_G' and type(value) == 'table' then
-			local h = value['help']
+			local h = value['Help']
 			if type(h) == 'function' then
 				print(' ', key)
 			end

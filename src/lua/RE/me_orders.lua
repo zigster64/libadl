@@ -1,6 +1,6 @@
 -- Maneuver Element / Division Orders
 
-me_orders = {
+local me_orders = {
 	{
 		name = 'Attack',
 		unengaged = 'Must move as fast as possible to become engaged',
@@ -80,7 +80,7 @@ function me_orders:help(order)
 			print(util.line)
 		end
 	end
-	util.PrintFunctions('me_orders', self)
+	util.PrintFunctions('ME_orders', self)
 	print(util.dline)
 end
 

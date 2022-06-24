@@ -37,9 +37,13 @@ end
 function util.Print(t, pad)
 	pad = pad or ''
 	for key, value in pairs(t) do
-		print(pad .. key,':', value)
-		if type(value) == "table" then
-			util.Print(value, pad .. util.indent)
+		if type(value) ~= "function" then
+			if type(value) == "table" then
+				print(pad .. key,'=
+				util.Print(value, pad .. util.indent)
+			else
+				print(pad .. key,':', value)
+			end
 		end
 	end
 end

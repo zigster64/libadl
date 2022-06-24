@@ -4,21 +4,26 @@
 -- name
 -- description
 -- code modules used in this phase
-phases = {
+local phases = {
 	{
 		name = 'Corps Orders',
 		description = 'Issue Corps Orders from Army Commander',
-		module = 'corps_orders'
+		module = 'Corps_orders'
 	},
 	{
 		name = 'ME Orders',
 		description = 'Issue ME Orders from Corps Commanders',
-		module = 'me_orders'
+		module = 'ME_orders'
 	},
 	{
 		name = 'ME Morale',
 		description = 'Test ME Morale Levels',
-		module = 'me_morale'
+		module = 'ME_morale'
+	},
+	{
+		name = 'ME Panic',
+		description = 'ME Panic Tests',
+		module = 'ME_panic'
 	}
 }
 
@@ -37,7 +42,7 @@ function phases:help(module)
 		))
 		print(util.line)
 	end
-	util.PrintFunctions('phases', self)
+	Util.PrintFunctions('Phases', self)
 end
 
 return phases
