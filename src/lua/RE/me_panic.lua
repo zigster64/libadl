@@ -18,25 +18,20 @@ function me_panic:Help()
 	print(Util.dline)
 
 	print('Test Params:')
-	print('  rating     ','ME rating from 10 (OldGuard) through to 0 (Rabble)')
-	print('  wrecked    ','50% or more casaulties to the ME')
-	print('  decimated  ','25% or more casaulties to the ME')
+	print('  grade      ','ME rating from old_guard through to rabble (See Help(Grades) for complete list)')
+	print('  losses     ','% of units that are in bad morale or destroyed')
 	print('  additional ','Number of additional causes, beyond the first')
-
-	print('  bad')
-	print('    infantry ','Number of Infantry Bns lost / bad morale')
-	print('    artillery','Number of Artillery Btys lost / bad morale')
-	print('    cavalry  ','Number of Cavalry Grps lost / bad morale ')
-	print('  structures')
-	print('    held     ','Number of structures held')
-	print('    lost     ','Number of structures lost')
-	print('  defeat     ','Number of CloseAction defeats this turn')
-	print('  victory    ','Number of CloseAction victories this turn')
-	print('  fatigue    ','Number of ME Fatigue points')
-	print('  campaign_fatigue -1 Weary / -2 Haggard / -5 Spent')
+	print('  lost_strongpoint','Number of strongpoints lost to the enemy within 30"')
+	print('  guard_broken','true or false, Guard unit within 30" has broken')
+	print('  guard_shaken','true or false, Guard unit within 30" is broken')
+	print('  no_bad     ','true or false, No units in bad morale')
+	print('  shaken     ','true or false, ME is shaken')
+	print('  blocked    ','true or false, Retreat path is blocked by enemy')
+	print('  interpenetrated','true or false, ME is interpenetrated by friendly ME')
+	print('  corps_withdraw_order','true or false, ME is under a Corps Withdraw order')
+	print('  fatigue    ','Number of ME fatigue points')
+	print('  campaign_fatigue -2 Weary / -4 Haggard / -6 Spent')
 	print('  leader +1 Inspirational +3 Charismatic leader attached')
-	print('  previously_shaken','true or false, ME was previously shaken')
-	print('  interpenetrated  ','true or false, ME is interpenetrated by friendly ME')
 	print('  other','any other modifiers')
 	print(Util.dline)
 end
@@ -44,13 +39,14 @@ end
 -- validate params
 function me_panic:get_params(p)
 	local params = {
-		grade = Troops.regular,
-		wrecked = false,
-		decimated = false, 
+		grade = Grades.regular,
+		guard_broken = false,
+		guard_shaken = false,
+		attrition = 0,
 		additional = 0,
 		fatigue = 0,
 		shaken = false,
-		retreat_blocked = false,
+		blocked = false,
 		lost_strongpoint = 0,
 		corps_withdraw_order = false,
 		campaign_fatigue = 0,
@@ -66,16 +62,33 @@ end
 function me_panic:test(params, roll)
 	roll = roll or Dice.roll()
 	params = self:get_params(params)
-	-- any mods here ??
-	local mods = 0
+	local mods = (params.additional * -2) +
+		(params.fatigue * -1) +
+		(params.lost_strongpoint * -2) +
+		(params.campaign_fatigue) +
+		(params.leader) +
+		(params.other)
+	if (params.guard_broken) then mods = mods -5 end
+	if (params.guard_shaken) then mods = mods -3 end
+	if (params.shaken) then mods = mods -2 end
+	if (params.blocked) then mods = mods -2 end
+	if (params.corps_withdraw_order) then mods = mods -1 end
+	if (params.interpenetrated) then mods = mods -1 end
+	if (params.losses >= 50) then
+		mods = mods -6
+	elseif (params.losses >= 25) then
+		mods = mods -3
+	end
+
+	print('Roll '..roll..' + mods '..mods..' = '..(roll+mods))
 	roll = roll + mods
-	if roll >= Troops.panic[0] then
+	if roll >= params.grade.panic[1] then
 		return {
 			result = 'Carry On',
 			shaken = false,
 			broken = false,
 		}
-	elseif roll <= Troops.panic[1] then
+	elseif roll <= params.grade.panic[2] then
 		return {
 			result = 'ME is shaken. All units -2 on morale and shock values',
 			shaken = true,

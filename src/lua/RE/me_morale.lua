@@ -70,9 +70,9 @@ function me_morale:test(params, roll)
 	params = self:get_params(params)
 	Util.Print(params)
 	local mods = params.grade.me_morale + params.other + params.structures.held - params.structures.lost +
-		(params.bad.infantry * -2)+ (params.bad.artillery * -2) + (params.bad.cavalry * -6) +
+		(params.bad.infantry * -2) + (params.bad.artillery * -2) + (params.bad.cavalry * -6) +
 		(params.good) + (params.defeat * -2) + (params.victory * 2) +
-		(params.fatigue) + (params.campaign_fatigue) + (params.leader)
+		(params.fatigue * -1) + (params.campaign_fatigue) + (params.leader)
 	if (params.previously_shaken) then
 		mods = mods - 3
 	end

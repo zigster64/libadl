@@ -50,7 +50,7 @@ function corps_orders:get(name)
 end
 
 -- module help
-function corps_orders:help()
+function corps_orders:Help()
 	print('Corps Level Orders')
 	print(Util.line)
 	-- print attribs
