@@ -64,9 +64,8 @@ function me_morale:get_params(p)
 	return util.Merge(params, p)
 end
 
--- me morale test
-function me_morale:test(params, roll)
-	roll = roll or Dice.roll()
+-- mods for morale test
+function me_morale:test_mods(params)
 	params = self:get_params(params)
 	Util.Print(params)
 	local mods = params.grade.me_morale + params.other + params.structures.held - params.structures.lost +
@@ -79,6 +78,14 @@ function me_morale:test(params, roll)
 	if (params.intepenetrated) then
 		mods = mods - 2
 	end
+	return mods
+end
+
+-- me morale test
+function me_morale:test(params, roll)
+	roll = roll or Dice.roll()
+	params = self:get_params(params)
+	local mods = self:test_mods(params)
 	print('Roll', roll, 'mods', mods, '=', roll+mods)
 	roll = roll + mods
 	if (roll <= 5) then

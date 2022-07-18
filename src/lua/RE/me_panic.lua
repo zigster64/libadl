@@ -58,10 +58,9 @@ function me_panic:get_params(p)
 	return Util.Merge(params, p)
 end
 
--- me panic test
-function me_panic:test(params, roll)
-	roll = roll or Dice.roll()
-	params = self:get_params(params)
+-- me panic mods
+function me_panic:test_mods(params)
+	Util.Print(params)
 	local mods = (params.additional * -2) +
 		(params.fatigue * -1) +
 		(params.lost_strongpoint * -2) +
@@ -79,6 +78,14 @@ function me_panic:test(params, roll)
 	elseif (params.losses >= 25) then
 		mods = mods -3
 	end
+	return mods
+end
+
+-- me panic test
+function me_panic:test(params, roll)
+	roll = roll or Dice.roll()
+	params = self:get_params(params)
+	local mods = self:test_mods(params)
 
 	local p1 = params.grade.panic[1]
 	local p2 = params.grade.panic[2]

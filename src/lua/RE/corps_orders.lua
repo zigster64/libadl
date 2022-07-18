@@ -115,14 +115,19 @@ function corps_orders.delay(distance, weather, roll)
 end
 
 -- attempt to do independent action
-function corps_orders.independent_action(new_order, rating, army_commander_near, roll)
-	if roll == 0 then
-		roll = Dice.roll()
-	end
+function corps_orders.independent_action_mods(new_order, rating, army_commander_near)
 	local mods = rating
 	if army_commander_near then
 		mods = mods -3
 	end
+	return mods
+end
+
+function corps_orders.independent_action(new_order, rating, army_commander_near, roll)
+	if roll == 0 then
+		roll = Dice.roll()
+	end
+	local mods = corps_orders.independent_action_mods(new_order, rating, army_commander_near)
 
 	print('Die Mods', mods)
 	roll = roll + mods
